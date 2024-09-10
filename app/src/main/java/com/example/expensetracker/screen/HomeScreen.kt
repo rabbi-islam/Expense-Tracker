@@ -37,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.expensetracker.R
 import com.example.expensetracker.data.model.ExpenseEntity
 import com.example.expensetracker.ui.theme.zinc
+import com.example.expensetracker.utils.Util
 import com.example.expensetracker.viewmodel.HomeViewModel
 import com.example.expensetracker.viewmodel.HomeViewModelFactory
 
@@ -104,8 +105,7 @@ fun HomeScreen(navController: NavHostController) {
                         bottom.linkTo(parent.bottom)
                         height = Dimension.fillToConstraints
                     },
-                list = state.value,
-                viewModel = homeViewModel
+                list = state.value
             )
             Image(
                 modifier = Modifier
@@ -183,16 +183,23 @@ fun CardItem(modifier: Modifier, balance: String, income: String, expense: Strin
 }
 
 @Composable
-fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>, viewModel: HomeViewModel) {
+fun TransactionList(
+    modifier: Modifier,
+    list: List<ExpenseEntity>,
+    title: String = "Recent Transactions"
+) {
     LazyColumn(modifier = modifier.padding(horizontal = 16.dp)) {
         item {
             Box(modifier = Modifier.fillMaxWidth()) {
-                Text(text = "Recent Transactions", fontSize = 20.sp)
-                Text(
-                    text = "See All",
-                    fontSize = 16.sp,
-                    modifier = Modifier.align(Alignment.CenterEnd)
-                )
+                Text(text = title, fontSize = 20.sp)
+                if (title == "Recent Transactions") {
+                    Text(
+                        text = "See All",
+                        fontSize = 16.sp,
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    )
+                }
+
             }
         }
 
@@ -200,7 +207,7 @@ fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>, viewModel: Ho
             TransactionItem(
                 title = item.title,
                 amount = item.amount.toString(),
-                icon = viewModel.getItemIcon(item),
+                icon = Util.getItemIcon(item),
                 date = item.date,
                 color = if (item.type == "Income") Color.Green else Color.Red
             )

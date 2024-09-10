@@ -68,7 +68,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation (libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
     val room_version = "2.6.1"
 
@@ -79,13 +79,9 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
-        val nav_version = "2.7.7"
+    val nav_version = "2.7.7"
 
-        implementation("androidx.navigation:navigation-compose:$nav_version")
-
-
-
-
-
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation (libs.mpandroidchart)
 
 }
